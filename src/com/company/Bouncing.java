@@ -38,7 +38,7 @@ public class Bouncing extends JPanel{
     class Runner implements Runnable{
         public Runner()
         {
-            //Feel free to change these default values
+            //Position and velocity for first sphere
             positionX = 275;
             positionY = HEIGHT - 275;
             velocityX = 10;
@@ -81,7 +81,7 @@ public class Bouncing extends JPanel{
                 if (positionXGreen < 0 || positionXGreen+30 > 1024) {
                     velocityXGreen = -velocityXGreen;
                 }
-                if (positionYGreen < 0) {
+                if (positionYGreen < 0 || positionYGreen+30 > 768) {
                     velocityYGreen = -velocityYGreen;
                 }
 
