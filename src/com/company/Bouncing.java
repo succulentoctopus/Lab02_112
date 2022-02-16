@@ -28,11 +28,11 @@ public class Bouncing extends JPanel{
     double accelerationX;
     double accelerationY;
 
-    //things left to do:
+    //challenges implemented:
     /*
-    squish ball when it hits the wall
-    initial x acceleration when it shoots out of cannon
-    second object that is subject to gravity (maybe x and y acceleration)
+    squish ball 1 when it hits a wall
+    initial x acceleration for ball 1 when it shoots out of cannon
+    ball 2 is subject to gravity (acts like a bouncy ball)
      */
 
     class Runner implements Runnable{
@@ -47,8 +47,8 @@ public class Bouncing extends JPanel{
             positionXGreen = 300;
             positionYGreen = HEIGHT - 300;
             velocityXGreen = 10;
-            velocityYGreen = -10;
-            accelerationY = -9.8;
+            velocityYGreen = -5;
+            accelerationY = 9.8;
             accelerationX = 50;
 
 
@@ -72,7 +72,7 @@ public class Bouncing extends JPanel{
                     velocityY = -velocityY;
                 }
 
-                //movement (which includes gravity) for second sphere
+                //movement (which includes gravity) for ball 2
 
                 positionXGreen += velocityXGreen;
                 velocityYGreen += accelerationY;
@@ -81,8 +81,9 @@ public class Bouncing extends JPanel{
                 if (positionXGreen < 0 || positionXGreen+30 > 1024) {
                     velocityXGreen = -velocityXGreen;
                 }
-                if (positionYGreen < 0 || positionYGreen+30 > 768) {
+                if (positionYGreen+30 > 768) {
                     velocityYGreen = -velocityYGreen;
+                    positionYGreen -= accelerationY;
                 }
 
                 //don't mess too much with the rest of this method
@@ -127,18 +128,18 @@ public class Bouncing extends JPanel{
         g.setColor(Color.BLUE);
         g.fillOval(150, HEIGHT-200, 200, 200);
 
-        //sphere 1 drawn here
+        //ball 1 drawn here
         g.setColor(Color.WHITE);
         g.drawOval((int)positionX, (int)positionY,  RADIUS,  RADIUS);
         //squish the sphere when it hits a wall
-        if (positionX <= 0 || positionX >= 1024) {
+        if (positionX-30 <= 0 || positionX+30 >= 1024) {
             g.drawOval((int)positionX, (int)positionY, RADIUS/2, RADIUS);
         }
-        if (positionY <= 0 || positionY >= 768) {
+        if (positionY-30 <= 0 || positionY+30 >= 768) {
             g.drawOval((int)positionX, (int)positionY, RADIUS, RADIUS/2);
         }
 
-        //sphere 2 drawn here
+        //ball 2 drawn here
         g.setColor(Color.GREEN);
         g.fillOval((int)positionXGreen, (int)positionYGreen, RADIUS, RADIUS);
     }
